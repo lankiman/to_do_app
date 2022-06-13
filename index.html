@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Frontend Mentor | To do App</title>
+    <link rel="icon" href="images/favicon-32x32.png" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class="header">
+      <div class="logo">
+        <p>TODO</p>
+      </div>
+
+      <div class="theme-changer">
+        <button id="switch">
+          <img src="images/icon-sun.svg" id="theme-changer" />
+        </button>
+      </div>
+    </div>
+
+    <div class="input-field">
+      <input type="checkbox" name="check" id="checkbox" />
+      <input type="text" name="what-to-app" class="input" id="WTF" />
+    </div>
+
+    <div class="item-container">
+      <!--<div class="items">-->
+      <ul id="myUl"></ul>
+
+      <!--</div>-->
+
+      <div class="data">
+        <div class="item-data">
+          <p class="item-data-text" id="info-box">0 items left</p>
+        </div>
+        <div class="data-btn">
+          <button id="all">All</button>
+          <button id="active">Active</button>
+          <button id="completed">Completed</button>
+        </div>
+
+        <button id="clear">Clear Completed</button>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
