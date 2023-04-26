@@ -6,17 +6,44 @@ let themecont = 1;
 themeChanger.addEventListener("click", change);
 
 function change() {
+  document.body.classList.toggle("light");
   let lightIcon = document.getElementById("theme-changer");
   if (themecont == 1) {
-    document.documentElement.setAttribute("data-theme", "light-theme");
     lightIcon.src = "images/icon-moon.svg";
     themecont = 2;
   } else if (themecont == 2) {
-    document.documentElement.removeAttribute("data-theme", "light-theme");
     lightIcon.src = "images/icon-sun.svg";
     themecont = 1;
   }
 }
+function itemInfo() {
+  let itemContainer = document.getElementById("myUl").childElementCount;
+  let infoBox = document.getElementById("info-box");
+  let checkboxes = document.getElementsByClassName("checkboxes");
+  let checkedCount = 0;
+
+  for (let i = 0; i < checkboxes.length; i++) {
+    if (checkboxes[i].checked) {
+      checkedCount++;
+    }
+  }
+
+  infoBox.innerHTML = itemContainer - checkedCount + " items left";
+}
+
+document.addEventListener("click", function(event) {
+  if (event.target.classList.contains("closeBtn")) {
+    let itemData = event.target.parentNode;
+    itemData.remove();
+    itemInfo();
+  }
+});
+
+document.addEventListener("change", function(event) {
+  if (event.target.classList.contains("checkboxes")) {
+    itemInfo();
+  }
+});
 
 function newTodo() {
   let itemData = document.createElement("div");
@@ -25,8 +52,9 @@ function newTodo() {
   let check = document.createElement("input");
   let closeBtn = document.createElement("img");
 
+  closeBtn.setAttribute("class", "closeBtn");
   closeBtn.setAttribute("id", "closeBtn");
-  closeBtn.src = "images/icon-cross.svg";
+  closeBtn.setAttribute("src", "images/icon-cross.svg");
 
   itemData.setAttribute("class", "itemData");
   check.setAttribute("type", "checkbox");
@@ -47,64 +75,57 @@ function newTodo() {
     document.getElementById("myUl").appendChild(itemData);
     inputFeild.value = "";
   }
+  itemInfo();
 }
 
 document.getElementById("WTF").addEventListener("keypress", function(event) {
   if (event.key === "Enter") {
     newTodo();
-    itemInfo();
   }
 });
 
-function itemInfo() {
-  let itemContainer = document.getElementById("myUl").childElementCount;
-  let infoBox = document.getElementById("info-box");
+const allBtn = document.getElementById("all");
+allBtn.addEventListener("click", function() {
+  const listItems = document.querySelectorAll(".itemData");
 
-  infoBox.innerHTML = itemContainer + " " + "items left";
-}
+  listItems.forEach(function(item) {
+    item.style.display = "flex";
+  });
+});
 
-// function checker() {
-//   let itemContainer = document.getElementById("myUl");
-//   let checkitems = document.querySelector("input[name='checkBox']");
-//   for (checkitems in itemContainer) {
-//     if (checkitems.checked == true) {
-//       itemContainer.childElementCount -= 1;
-//     }
-//     // {
-//     //   checkitemsconsitemContainerent = o[key];
-//     // }
-//   }
+const activeBtn = document.getElementById("active");
 
-//   console.log(itemContainer.childElementCount);
-//   let infoBox = document.getElementById("info-box");
+activeBtn.addEventListener("click", function() {
+  const checkboxes = document.querySelectorAll(".checkboxes");
 
-//   infoBox.innerHTML = itemContainer.childElementCount + " " + "items left";
-// }
-// function checker() {
-//   let itemsDet = document.getElementById("check");
-//   let itemContainer = document.getElementById("myUl");
-//   itemContainer.forEach(check => {
-//     if (itemsDet.checked == true) {
-//       console.log(2);
-//     } else if (itemsDet.checked == false) {
-//       console.log(1);
-//     }
-//   });
-// }
+  checkboxes.forEach(function(checkbox) {
+    if (checkbox.checked) {
+      checkbox.parentNode.style.display = "none";
+    } else {
+      checkbox.parentNode.style.display = "flex";
+    }
+  });
+});
 
-// function checker() {
-//   let itemsDet = document.getElementById("check");
-//   let itemContainer = document.getElementById("myUl").childElementCount;
-//   let infoBox = document.getElementById("info-box");
-//   let checkedItems = itemContainer.itemsDet.checked;
+const completedBtn = document.getElementById("completed");
 
-//   if (itemsDet.checked == true) {
-//     checkedItems = itemContainer.itemsDet.checked;
-//     itemContainer -= checkedItems;
+completedBtn.addEventListener("click", function() {
+  const checkboxes = document.querySelectorAll(".checkboxes");
 
-//     console.log(itemContainer);
-//   } // } else if (itemsDet.checked == false) {
-//   //   itemContainer += 1;
-//   //   console.log(itemContainer);
-//   // }
-// }
+  checkboxes.forEach(function(checkbox) {
+    if (!checkbox.checked) {
+      checkbox.parentNode.style.display = "none";
+    } else {
+      checkbox.parentNode.style.display = "flex";
+    }
+  });
+});
+
+const clearCompletedBtn = document.getElementById("clear");
+clearCompletedBtn.addEventListener("click", function() {
+  const completedItems = document.querySelectorAll(
+    ".itemData input[type='checkbox']:checked"
+  );
+  completedItems.forEach(item => item.parentNode.remove());
+  itemInfo();
+});

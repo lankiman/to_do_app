@@ -9,10 +9,11 @@
   --itemdatacolour: hsl(233, 14%, 35%);
   --bordercolours: hsl(237, 14%, 26%);
   --hovercolour: hsl(236, 33%, 92%);
+  
 
   font-family: "Josefin Sans", sans-serif;
 }
-[data-theme="light-theme"] {
+.light{
   --desktopColourBG: hsl(0, 0%, 98%);
   --desktopDarkThemeBg: url("images/bg-desktop-light.jpg");
   --mobileDarktThemeBg: url("images/bg-mobile-light.jpg");
@@ -36,10 +37,10 @@ html {
 }
 
 body {
-  width: 100%;
-
+  width: full;
   background: var(--desktopDarkThemeBg);
   background-repeat: no-repeat;
+  background-size:100%;
   background-color: var(--desktopColourBG);
 }
 
@@ -274,6 +275,7 @@ input[name="checkBox"]:checked ~ li {
   visibility: hidden;
 
   padding-right: 2rem;
+ 
 }
 
 #closeBtn:hover {
@@ -288,4 +290,24 @@ li {
 
 li:hover ~ #closeBtn {
   visibility: visible;
+}
+
+/* Styles for mobile devices */
+@media (max-width: 767px) {
+
+  html {
+    font-size: 42.5%;
+  }
+  body{
+    background-size: 170%;
+    overflow: hidden;
+  }
+  .header{
+    padding: 1rem 0 1rem 0;
+    width: 80%;
+  }
+  .input-field,
+  .item-container{
+    width: 80%;
+  } 
 }
